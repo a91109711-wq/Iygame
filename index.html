@@ -13,6 +13,10 @@
             margin: 0;
             padding: 20px;
         }
+        /* 預設將主內容隱藏，等密碼對了才打開 */
+        #main-content {
+            display: none;
+        }
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -36,7 +40,7 @@
             font-size: 0.9em;
         }
         h2 {
-            color: #00c300; /* 類似 LINE 的綠色 */
+            color: #00c300;
             border-left: 5px solid #00c300;
             padding-left: 15px;
             margin-top: 30px;
@@ -84,9 +88,9 @@
             margin-left: 10px;
             vertical-align: middle;
         }
-        .tag-fix { background-color: #3498db; } /* 已修正 */
-        .tag-wait { background-color: #f39c12; } /* 等待更新 */
-        .tag-rd { background-color: #95a5a6; } /* RD研究中 */
+        .tag-fix { background-color: #3498db; }
+        .tag-wait { background-color: #f39c12; }
+        .tag-rd { background-color: #95a5a6; }
         
         .version-info {
             background-color: #e8f5e9;
@@ -106,7 +110,7 @@
 </head>
 <body>
 
-<div class="container">
+<div id="main-content" class="container">
     <header>
         <h1>音圓伴唱機 (INYuan) 技術支援與公告</h1>
         <p class="date">最後更新日期：2025年12月10日</p>
@@ -198,6 +202,19 @@
     </footer>
 </div>
 
+<script>
+    (function() {
+        var password = prompt("請輸入訪問密碼\n(提示：0000)", "");
+        if (password === "0000") {
+            // 密碼正確，顯示內容
+            document.getElementById("main-content").style.display = "block";
+        } else {
+            // 密碼錯誤，跳出警告並重新整理
+            alert("密碼錯誤！無法查看內容。");
+            location.reload(); 
+        }
+    })();
+</script>
+
 </body>
 </html>
-
