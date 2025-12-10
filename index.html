@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>音圓伴唱機 - 軟體更新與常見問題 (FAQ)</title>
+    <title>音圓伴唱機 - 技術支援與常見問題 (FAQ)</title>
     <style>
         body {
             font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -13,7 +13,7 @@
             margin: 0;
             padding: 20px;
         }
-        /* 預設將主內容隱藏，等密碼對了才打開 */
+        /* 重點：預設隱藏主內容 */
         #main-content {
             display: none;
         }
@@ -90,7 +90,8 @@
         }
         .tag-fix { background-color: #3498db; }
         .tag-wait { background-color: #f39c12; }
-        .tag-rd { background-color: #95a5a6; }
+        .tag-rd { background-color: #95a5a6; } /* RD研究中 */
+        .tag-try { background-color: #9b59b6; } /* 建議嘗試 */
         
         .version-info {
             background-color: #e8f5e9;
@@ -134,6 +135,21 @@
         <h2>🔧 已知問題與修復進度 (Bug Report)</h2>
         
         <div class="qa-box">
+            <div class="question">機器無法「收藏歌曲」或同步出現異常？<span class="tag tag-try">建議嘗試</span></div>
+            <div class="answer">
+                <div>
+                    可能原因是「資料庫特殊字元」影響了收藏或刪除功能。
+                    <br><strong>解決方法：</strong>
+                    <ul>
+                        <li>請先嘗試<strong>重新開機</strong>。</li>
+                        <li>若無效，請試著刪除一首或收藏一首歌曲後，再次執行同步看看。</li>
+                        <li>若重啟後恢復正常，則機器無需送回檢修。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-box">
             <div class="question">Star-25 看完 YouTube 退出後有「滋滋叫」的噪音？<span class="tag tag-fix">已修正</span></div>
             <div class="answer">
                 <div>這是已知的軟體問題。官方確認已在「下一個發布版本」中解決，請等待更新推送即可。</div>
@@ -160,13 +176,6 @@
                 <div>這是搜尋邏輯的異常，官方已複製出此問題並回報給研發部門處理中。</div>
             </div>
         </div>
-
-        <div class="qa-box">
-            <div class="question">YouTube 結束應用程式後，機器當機或重開？<span class="tag tag-rd">RD研究中</span></div>
-            <div class="answer">
-                <div>工程團隊目前正在研究此偶發性問題的原因。</div>
-            </div>
-        </div>
     </section>
 
     <section>
@@ -188,13 +197,6 @@
                 <div>這是參數優化的正常結果。舊款 6000 系列因未經升級參數調整，預設音量較大；N2 系列經過優化與消除干擾，呈現的是較為標準的原始音量。</div>
             </div>
         </div>
-
-        <div class="qa-box">
-            <div class="question">舊螢幕 (VGA) 可以接 Party 主機嗎？</div>
-            <div class="answer">
-                <div>可以，但需使用「HDMI 轉 VGA」轉接線。且因 VGA 不傳輸聲音，需另外外接 USB 音效卡輸出聲音。</div>
-            </div>
-        </div>
     </section>
 
     <footer>
@@ -204,14 +206,28 @@
 
 <script>
     (function() {
-        var password = prompt("請輸入訪問密碼\n(提示：0000)", "");
-        if (password === "0000") {
-            // 密碼正確，顯示內容
-            document.getElementById("main-content").style.display = "block";
-        } else {
-            // 密碼錯誤，跳出警告並重新整理
-            alert("密碼錯誤！無法查看內容。");
-            location.reload(); 
+        // 設定密碼
+        var correctPassword = "0000";
+        var userPassword = "";
+
+        // 跳出輸入視窗，直到輸入正確或使用者取消
+        while (userPassword !== correctPassword) {
+            userPassword = prompt("請輸入訪問密碼\n(提示：0000)", "");
+            
+            // 如果使用者按取消 (null)，則停止詢問並保持空白頁面
+            if (userPassword === null) {
+                alert("您已取消輸入，無法查看內容。");
+                break;
+            }
+
+            // 檢查密碼
+            if (userPassword === correctPassword) {
+                // 密碼正確，顯示內容
+                document.getElementById("main-content").style.display = "block";
+            } else {
+                // 密碼錯誤
+                alert("密碼錯誤，請重新輸入！");
+            }
         }
     })();
 </script>
