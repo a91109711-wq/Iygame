@@ -13,7 +13,7 @@
             margin: 0;
             padding: 20px;
         }
-        /* 重點：預設隱藏主內容 */
+        /* 預設隱藏主內容 */
         #main-content {
             display: none;
         }
@@ -88,10 +88,11 @@
             margin-left: 10px;
             vertical-align: middle;
         }
-        .tag-fix { background-color: #3498db; }
-        .tag-wait { background-color: #f39c12; }
-        .tag-rd { background-color: #95a5a6; } /* RD研究中 */
-        .tag-try { background-color: #9b59b6; } /* 建議嘗試 */
+        .tag-fix { background-color: #3498db; } /* 藍色：已修正 */
+        .tag-wait { background-color: #f39c12; } /* 橘色：等待更新 */
+        .tag-rd { background-color: #95a5a6; } /* 灰色：RD研究中 */
+        .tag-try { background-color: #9b59b6; } /* 紫色：建議嘗試 */
+        .tag-info { background-color: #2ecc71; } /* 綠色：知識/正常 */
         
         .version-info {
             background-color: #e8f5e9;
@@ -114,19 +115,18 @@
 <div id="main-content" class="container">
     <header>
         <h1>音圓伴唱機 (INYuan) 技術支援與公告</h1>
-        <p class="date">最後更新日期：2025年12月10日</p>
+        <p class="date">最後更新日期：2025年12月12日</p>
     </header>
 
     <section>
-        <h2>🚀 最新軟體更新公告</h2>
+        <h2>🚀 最新軟體更新 (Party v1.07 / Star v1.06)</h2>
         <div class="version-info">
             <p><strong>適用版本：</strong> Party 系列 v1.07 / Star 系列 v1.06</p>
-            <p><strong>更新發布日：</strong> 2025年10月31日</p>
-            <p><strong>主要更新內容：</strong></p>
+            <p><strong>主要功能：</strong></p>
             <ul>
-                <li><strong>YouTube 功能增強：</strong> 支援全局搜索、插播功能、加入最愛。</li>
+                <li><strong>YouTube 增強：</strong> 支援全局搜索、插播、加入最愛。</li>
                 <li><strong>手機投屏：</strong> 新增照片投屏功能（最多10張）。</li>
-                <li><strong>系統優化：</strong> 解決音量調整噪聲、優化 UI 介面、提升國外連線穩定性。</li>
+                <li><strong>系統優化：</strong> 解決音量噪聲、優化 UI、國外連線穩定性。</li>
             </ul>
         </div>
     </section>
@@ -135,16 +135,27 @@
         <h2>🔧 已知問題與修復進度 (Bug Report)</h2>
         
         <div class="qa-box">
+            <div class="question">Star-25 跳出娛樂功能(YouTube)後，整台機器變無聲？<span class="tag tag-fix">已修正</span></div>
+            <div class="answer">
+                <div>這是已知問題，特定歌曲播放也會無聲。目前暫時需重開機恢復。<br><strong>狀態：</strong>官方確認「下一個發布版本」已修正此問題。</div>
+            </div>
+        </div>
+
+        <div class="qa-box">
             <div class="question">機器無法「收藏歌曲」或同步出現異常？<span class="tag tag-try">建議嘗試</span></div>
             <div class="answer">
                 <div>
-                    可能原因是「資料庫特殊字元」影響了收藏或刪除功能。
-                    <br><strong>解決方法：</strong>
-                    <ul>
-                        <li>請先嘗試<strong>重新開機</strong>。</li>
-                        <li>若無效，請試著刪除一首或收藏一首歌曲後，再次執行同步看看。</li>
-                        <li>若重啟後恢復正常，則機器無需送回檢修。</li>
-                    </ul>
+                    可能原因是「資料庫特殊字元」導致。
+                    <br><strong>解法：</strong>嘗試刪除一首或收藏一首歌曲後，再次執行同步。若重啟後恢復正常則無需送修。
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-box">
+            <div class="question">網路升級一半跳回暖場畫面，遙控器沒反應 (像當機)？<span class="tag tag-info">正常現象</span></div>
+            <div class="answer">
+                <div>
+                    這不是當機。當網路不穩時，系統會跳出升級畫面但在<strong>後台繼續下載程式包</strong>。此時請稍後片刻，待下載完成即可，無需強制關機。
                 </div>
             </div>
         </div>
@@ -152,28 +163,28 @@
         <div class="qa-box">
             <div class="question">Star-25 看完 YouTube 退出後有「滋滋叫」的噪音？<span class="tag tag-fix">已修正</span></div>
             <div class="answer">
-                <div>這是已知的軟體問題。官方確認已在「下一個發布版本」中解決，請等待更新推送即可。</div>
+                <div>官方確認已在「下一個發布版本」中解決。</div>
             </div>
         </div>
 
         <div class="qa-box">
-            <div class="question">第三方 App (如 SmartTube) 音量會自動跳到 70 (超大聲)？<span class="tag tag-fix">已修正</span></div>
+            <div class="question">第三方 App (SmartTube) 音量自動跳到 70？<span class="tag tag-fix">已修正</span></div>
             <div class="answer">
-                <div>這是音量記憶功能的 Bug。官方已修正此問題，將於「下一個版本」更新。</div>
+                <div>音量記憶 Bug，將於「下一個版本」修正。</div>
             </div>
         </div>
 
         <div class="qa-box">
             <div class="question">iPhone 點擊「投屏」功能會閃退？<span class="tag tag-fix">已修正</span></div>
             <div class="answer">
-                <div>主要發生在網路訊號不穩時。官方將在下一版修正此崩潰問題，目前請先檢查網路連線。</div>
+                <div>發生於網路不穩時。將在下一版修正，目前請檢查網路連線。</div>
             </div>
         </div>
-
+        
         <div class="qa-box">
             <div class="question">搜尋特定歌手（如江志豐）顯示「查無此首」？<span class="tag tag-rd">RD處理中</span></div>
             <div class="answer">
-                <div>這是搜尋邏輯的異常，官方已複製出此問題並回報給研發部門處理中。</div>
+                <div>搜尋邏輯異常，官方已回報 RD 處理中。</div>
             </div>
         </div>
     </section>
@@ -182,11 +193,35 @@
         <h2>🔌 硬體設定與操作問答</h2>
 
         <div class="qa-box">
+            <div class="question">Party 系列可以外接「觸控螢幕」(VGA介面) 嗎？<span class="tag tag-info">可以</span></div>
+            <div class="answer">
+                <div>
+                    <strong>可以，但需注意：</strong>
+                    <ul>
+                        <li><strong>影像：</strong> 需使用「HDMI 轉 VGA」轉接頭（Party 系列輸出為 HDMI）。</li>
+                        <li><strong>觸控：</strong> 需連接 USB 線 (觸控訊號)。</li>
+                        <li><strong>聲音：</strong> VGA 無聲音，需外接音源。</li>
+                        <li><strong>⚠️警告：</strong> 請勿使用簡易型「HDMI 一分二」分接器接大電視與觸控屏，極高機率導致<strong>觸控失效</strong>。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-box">
+            <div class="question">硬碟燈跟網路燈一直閃爍是正常的嗎？<span class="tag tag-info">正常</span></div>
+            <div class="answer">
+                <div>
+                    <strong>開機使用中：</strong> 燈號閃爍是<strong>正常</strong>的資料讀取現象。<br>
+                    <strong>異常狀況：</strong> 只有在關機/待機後如果還「恆亮」才是不正常。
+                </div>
+            </div>
+        </div>
+
+        <div class="qa-box">
             <div class="question">HDMI 輸出的音量太小，可用伴唱機遙控器調整嗎？</div>
             <div class="answer">
                 <div>
-                    <strong>目前不行。</strong><br>
-                    HDMI 音源採「直通 (Pass-through)」輸出，由擴大機控制音量。此功能已列入開發排程，但優先順序在「音質優化」與「錄音音量」之後。
+                    <strong>目前不行。</strong> HDMI 音源採「直通 (Pass-through)」輸出，由擴大機控制。此功能開發順序排在「音質優化」與「錄音音量」之後。
                 </div>
             </div>
         </div>
@@ -194,7 +229,7 @@
         <div class="qa-box">
             <div class="question">為何 N2 系列的聲音感覺比舊款 (6000系列) 小聲？</div>
             <div class="answer">
-                <div>這是參數優化的正常結果。舊款 6000 系列因未經升級參數調整，預設音量較大；N2 系列經過優化與消除干擾，呈現的是較為標準的原始音量。</div>
+                <div>因為 6000 系列未經參數優化，預設增益較大；N2 系列經過優化，呈現的是標準原始音量，此為正常現象。</div>
             </div>
         </div>
     </section>
@@ -206,26 +241,21 @@
 
 <script>
     (function() {
-        // 設定密碼
         var correctPassword = "0000";
         var userPassword = "";
 
-        // 跳出輸入視窗，直到輸入正確或使用者取消
+        // 循環詢問密碼
         while (userPassword !== correctPassword) {
             userPassword = prompt("請輸入訪問密碼\n(提示：0000)", "");
             
-            // 如果使用者按取消 (null)，則停止詢問並保持空白頁面
             if (userPassword === null) {
                 alert("您已取消輸入，無法查看內容。");
-                break;
+                break; // 取消則停止
             }
 
-            // 檢查密碼
             if (userPassword === correctPassword) {
-                // 密碼正確，顯示內容
                 document.getElementById("main-content").style.display = "block";
             } else {
-                // 密碼錯誤
                 alert("密碼錯誤，請重新輸入！");
             }
         }
