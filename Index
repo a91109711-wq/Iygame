@@ -68,24 +68,19 @@
         .story-card.active .photo-frame { transform: rotate(0deg) scale(1.02); }
         
         .photo-frame img {
-            width: 100%; height: 100%; object-fit: cover; border-radius: 10px;
+            width: 100%; height: 100%; object-fit: cover; object-position: center top; border-radius: 10px;
         }
 
         /* 文字區塊 */
         .text-box {
             background: rgba(255,255,255,0.9); padding: 20px; border-radius: 15px;
             width: 85%; max-width: 380px; text-align: center; line-height: 1.6;
-            font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            font-size: 1.0rem; /* 字體稍微縮小一點以容納長文 */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             opacity: 0; transform: translateY(20px); transition: all 0.8s ease 0.3s;
         }
         .story-card.active .text-box { opacity: 1; transform: translateY(0); }
 
-        /* 重點文字螢光筆特效 */
-        .highlight span {
-            color: #d84315; font-weight: bold;
-            background: linear-gradient(120deg, #ffd180 0%, #ffd180 100%);
-            background-size: 100% 30%; background-position: 0 88%; background-repeat: no-repeat;
-        }
     </style>
 </head>
 <body>
@@ -101,79 +96,90 @@
     <audio id="bgMusic" loop src="Music.mp3" preload="auto"></audio>
     <audio id="voiceOver" src="Voice.mp3" preload="auto"></audio>
 
-    <div id="book">
-        
-        <div class="story-card active">
-            <div class="photo-frame"><img src="Page1.jpg" onerror="this.src='Page1.jpg'"></div>
-            <div class="text-box">這封信我想寫很久了，心裡有無數個謝謝想對妳說。</div>
-        </div>
-
-        <div class="story-card">
-            <div class="photo-frame"><img src="Page2.jpg" onerror="this.src='Page1.jpg'"></div>
-            <div class="text-box">感謝妳願意陪我去參加我們公司的尾牙！做我的「假女友」，真的難為妳了。</div>
-        </div>
-
-        <div class="story-card">
-            <div class="photo-frame"><img src="Page3.jpg" onerror="this.src='Page1.jpg'"></div>
-            <div class="text-box">回頭想想，我們這陣子的關連真的好多。</div>
-        </div>
-
-        <div class="story-card">
-            <div class="photo-frame"><img src="Page4.jpg" onerror="this.src='Page3.jpg'"></div>
-            <div class="text-box">從網頁設計到阿文的事情，我最混亂的時候妳都在。</div>
-        </div>
-
-        <div class="story-card">
-            <div class="photo-frame"><img src="Page5.jpg" onerror="this.src='Page3.jpg'"></div>
-            <div class="text-box">跨年那天被放鳥，心情最差的時候，謝謝妳陪著我，聽我訴說心情。</div>
-        </div>
-
-        <div class="story-card">
-            <div class="photo-frame"><img src="Page6.jpg" onerror="this.src='Page1.jpg'"></div>
-            <div class="text-box highlight">
-                <span>還有陪我看醫生，以及介紹我去試聽「探索自己」的課程。</span><br>
-                雖然只是試聽，但我真的很期待正式課程！當然還有幫我打理嘴唇。
-            </div>
-        </div>
-
-        <div class="story-card">
-            <div class="photo-frame"><img src="Page7.jpg" onerror="this.src='Page1.jpg'"></div>
-            <div class="text-box">謝謝妳這一路上的關心與陪伴，一直挺我。</div>
-        </div>
-
-        <div class="story-card">
-            <div class="photo-frame"><img src="Page8.jpg" onerror="this.src='Page1.jpg'"></div>
-            <div class="text-box">有妳這個好姐妹，真的是我最幸運的事。</div>
-        </div>
-
-        <div class="story-card">
-            <div class="photo-frame"><img src="Page9.jpg" onerror="this.src='Page8.jpg'"></div>
-            <div class="text-box" style="font-size: 1.3rem; font-weight: bold; color: #ff6f61;">
-                謝謝妳，屁桃。
-            </div>
-        </div>
-
-        <div class="story-card">
-            <div class="photo-frame"><img src="Page9.jpg" onerror="this.src='Page8.jpg'"></div>
-            <div class="text-box">
-                未來的路，我們還要繼續這樣互當支柱喔！<br><br>
-                <button class="gift-btn" onclick="location.reload()" style="font-size:1rem; padding:10px 20px">再看一次 ❤️</button>
-            </div>
-        </div>
-
-    </div>
+    <div id="book"></div>
 
     <script>
-        // --- 初始化變數 ---
+        // ==========================================
+        // 📢 故事設定區 (文字與秒數已填入)
+        // ==========================================
+        const storyData = [
+            { 
+                img: "Page1.jpg", 
+                text: "親愛的屁桃：<br>這封信我想寫很久了，心裡有無數個謝謝想對妳說。", 
+                time: 6 
+            },
+            { 
+                img: "Page2.jpg", 
+                text: "首先，真的要大大感謝妳願意陪我去參加我們公司的尾牙！<br>妳也知道我才剛進公司幾個月，平常都在外面跑業務，跟同事真的還沒到很熟。如果這次要我一個人去，我真的會尷尬到想挖地洞鑽進去。", 
+                time: 16 
+            },
+            { 
+                img: "Page3.jpg", 
+                text: "妳願意陪我去，我心裡真的踏實很多。<br>雖然想到這兩天要委屈妳當我的「假女友」，讓同事們誤會，我自己都先害羞尷尬起來了……哈哈！真的難為妳了，這份恩情我一定會記在心上的。", 
+                time: 16 
+            },
+            { 
+                img: "Page4.jpg", 
+                text: "回頭想想，我們這陣子的關連真的好多好多。<br>從一開始的網頁設計，到後來阿文進去，我最混亂、最需要人陪的時候妳都在。", 
+                time: 11 
+            },
+            { 
+                img: "Page5.jpg", 
+                text: "甚至跨年那天我被放鳥、心情最爛的時候，也是妳陪著我。", 
+                time: 7 
+            },
+            { 
+                img: "Page6.jpg", 
+                text: "還有妳陪我看醫生檢查眼睛、我去妳那邊上課、甚至幫我打理我的唇……這點點滴滴，我真的都看在眼裡。", 
+                time: 12 
+            },
+            { 
+                img: "Page7.jpg", 
+                text: "謝謝妳這一路上的關心與陪伴，在我最無助、尷尬的時候一直挺我。", 
+                time: 8 
+            },
+            { 
+                img: "Page8.jpg", 
+                text: "有妳這個好姐妹、好閨蜜，真的是我最幸運的事。", 
+                time: 6 
+            },
+            { 
+                img: "Page9.jpg", 
+                text: "謝謝妳，屁桃。<br>未來的路，我們還要繼續這樣互當支柱喔！<br><br>妳的好姐妹 阿秋", 
+                time: 10 
+            }
+        ];
+        // ==========================================
+
         const openBtn = document.getElementById('openBtn');
         const landing = document.getElementById('landing');
         const book = document.getElementById('book');
         const bgMusic = document.getElementById('bgMusic');
         const voiceOver = document.getElementById('voiceOver');
-        const cards = document.querySelectorAll('.story-card');
         const peachBg = document.getElementById('peachBg');
+        let cards = [];
 
-        // --- 1. 背景動畫 ---
+        // 1. 初始化頁面
+        function initBook() {
+            let html = '';
+            storyData.forEach((page, index) => {
+                html += `
+                <div class="story-card" id="card-${index}">
+                    <div class="photo-frame"><img src="${page.img}" onerror="this.src='Page1.jpg'"></div>
+                    <div class="text-box">${page.text}</div>
+                </div>`;
+            });
+            // 結尾頁
+            html += `
+            <div class="story-card" style="height:50vh">
+                 <button class="gift-btn" onclick="location.reload()" style="font-size:1rem; padding:10px 20px">再看一次 ❤️</button>
+            </div>`;
+            
+            book.innerHTML = html;
+            cards = document.querySelectorAll('.story-card');
+        }
+
+        // 2. 背景動畫
         function createPeaches() {
             const emojis = ['🍑', '✨', '🌸', '💖'];
             for(let i=0; i<20; i++) {
@@ -186,58 +192,45 @@
                 peachBg.appendChild(span);
             }
         }
-        createPeaches();
 
-        // --- 2. 點擊開始 ---
+        // 3. 點擊開始
         openBtn.addEventListener('click', async () => {
-            // 介面切換
             landing.style.opacity = '0';
             setTimeout(() => { 
                 landing.style.display = 'none'; 
                 book.style.opacity = '1'; 
-                cards[0].classList.add('active'); // 啟動第一張動畫
+                cards[0].classList.add('active');
             }, 1000);
 
-            // 音訊控制 (核心需求)
-            bgMusic.volume = 0.15; // 背景音樂小聲
-            voiceOver.volume = 1.0; // 人聲大聲
+            bgMusic.volume = 0.15; 
+            voiceOver.volume = 1.0; 
 
             try {
                 await bgMusic.play();
                 await voiceOver.play();
-                
-                // 取得人聲長度後，設定翻頁速度
-                if (voiceOver.duration) {
-                    startAutoScroll(voiceOver.duration);
-                } else {
-                    voiceOver.onloadedmetadata = () => {
-                        startAutoScroll(voiceOver.duration);
-                    };
-                }
+                runStoryTimeline(); // 啟動時間軸
             } catch (err) {
-                console.log("播放被瀏覽器阻擋，需要使用者互動", err);
+                console.log("播放需互動", err);
+                runStoryTimeline(); // 靜音模式也要跑
             }
         });
 
-        // --- 3. 自動翻頁邏輯 ---
-        function startAutoScroll(totalDuration) {
-            const totalCards = cards.length;
-            // 計算每張卡片停留時間 (總秒數 / 卡片數) * 1000 = 毫秒
-            const intervalTime = (totalDuration / totalCards) * 1000;
-            
-            let currentCard = 0;
-            
-            const scrollInterval = setInterval(() => {
-                currentCard++;
-                
-                if (currentCard >= totalCards) {
-                    clearInterval(scrollInterval); // 結束
-                } else {
-                    // 滑動到下一張
-                    cards[currentCard].scrollIntoView({ behavior: 'smooth' });
-                    updateActive(currentCard);
+        // 4. 導演模式：時間軸控制系統
+        function runStoryTimeline() {
+            let accumulatedTime = 0;
+
+            storyData.forEach((page, index) => {
+                // 如果不是第一張，就要設定「幾秒後滑過去」
+                if (index > 0) {
+                    // 累加前一張的時間
+                    accumulatedTime += storyData[index - 1].time * 1000;
+                    
+                    setTimeout(() => {
+                        cards[index].scrollIntoView({ behavior: 'smooth' });
+                        updateActive(index);
+                    }, accumulatedTime);
                 }
-            }, intervalTime);
+            });
         }
 
         function updateActive(index) {
@@ -245,18 +238,20 @@
             if(cards[index]) cards[index].classList.add('active');
         }
 
-        // --- 4. 支援手動滑動 (更新文字動畫) ---
+        // 5. 支援手動滑動
         book.addEventListener('scroll', () => {
             const midLine = window.innerHeight / 2;
             cards.forEach((card, index) => {
                 const rect = card.getBoundingClientRect();
-                // 當卡片中心點接近螢幕中央時
                 if (rect.top < midLine && rect.bottom > midLine) {
                     updateActive(index);
                 }
             });
         });
 
+        // 啟動程式
+        initBook();
+        createPeaches();
     </script>
 </body>
 </html>
