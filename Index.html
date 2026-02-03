@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>給屁桃的一封信</title>
+    <style>
+        /* --- 1. 基礎設定 --- */
+        :root {
+            --bg-color: #FFF0F5;   /* 淺粉紅背景 */
+            --text-color: #5D4037; /* 深咖啡文字 */
+            --accent: #ff6f61;     /* 重點色 */
+        }
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; /* 禁止隨意滑動，由程式控制 */
+            font-family: "PingFang TC", "Noto Sans TC", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* --- 2. 背景漂浮動畫 --- */
+        .peach-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+        .peach { position: absolute; bottom: -50px; font-size: 2rem; opacity: 0.6; animation: floatUp 10s linear infinite; }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- 3. 封面 (拆禮物) --- */
+        #landing {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100;
+            background: radial-gradient(circle, #ffe4e1 0%, #ffc0cb 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1s ease;
+        }
+        .gift-btn {
+            font-size: 1.5rem; padding: 15px 40px; background: white; color: var(--accent);
+            border: none; border-radius: 50px; cursor: pointer; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255,111,97,0.4); animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); }
+        }
+
+        /* --- 4. 書本內容 --- */
+        #book {
+            height: 100%; overflow-y: scroll; scroll-snap-type: y mandatory;
+            opacity: 0; transition: opacity 1s ease;
+            scrollbar-width: none; /* 隱藏捲軸 */
+        }
+        #book::-webkit-scrollbar { display: none; }
+
+        .story-card {
+            height: 100vh; width: 100%; scroll-snap-align: start;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 20px; box-sizing: border-box; position: relative; z-index: 10;
+        }
+
+        /* 照片相框 */
+        .photo-frame {
+            width: 90%; max-width: 400px; height: 55vh; background: white;
+            padding: 10px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-bottom: 20px; transform: rotate(-2deg); transition: transform 0.8s ease;
+        }
+        .story-card:nth-child(even) .photo-frame { transform: rotate(2deg); }
+        .story-card.active .photo-frame { transform: rotate(0deg) scale(1.02); }
+        
+        .photo-frame img {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 10px;
+        }
+
+        /* 文字區塊 */
+        .text-box {
+            background: rgba(255,255,255,0.9); padding: 20px; border-radius: 15px;
+            width: 85%; max-width: 380px; text-align: center; line-height: 1.6;
+            font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            opacity: 0; transform: translateY(20px); transition: all 0.8s ease 0.3s;
+        }
+        .story-card.active .text-box { opacity: 1; transform: translateY(0); }
+
+        /* 重點文字螢光筆特效 */
+        .highlight span {
+            color: #d84315; font-weight: bold;
+            background: linear-gradient(120deg, #ffd180 0%, #ffd180 100%);
+            background-size: 100% 30%; background-position: 0 88%; background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="peach-bg" id="peachBg"></div>
+
+    <div id="landing">
+        <div style="font-size: 4rem; margin-bottom: 20px;">🎁</div>
+        <button class="gift-btn" id="openBtn">拆開禮物</button>
+        <p style="margin-top: 15px; color: #fff; font-size: 0.9rem;">請開啟聲音獲得最佳體驗</p>
+    </div>
+
+    <audio id="bgMusic" loop src="Music.mp3" preload="auto"></audio>
+    <audio id="voiceOver" src="Voice.mp3" preload="auto"></audio>
+
+    <div id="book">
+        
+        <div class="story-card active">
+            <div class="photo-frame"><img src="Page1.jpg" onerror="this.src='Page1.jpg'"></div>
+            <div class="text-box">這封信我想寫很久了，心裡有無數個謝謝想對妳說。</div>
+        </div>
+
+        <div class="story-card">
+            <div class="photo-frame"><img src="Page2.jpg" onerror="this.src='Page1.jpg'"></div>
+            <div class="text-box">感謝妳願意陪我去參加我們公司的尾牙！做我的「假女友」，真的難為妳了。</div>
+        </div>
+
+        <div class="story-card">
+            <div class="photo-frame"><img src="Page3.jpg" onerror="this.src='Page1.jpg'"></div>
+            <div class="text-box">回頭想想，我們這陣子的關連真的好多。</div>
+        </div>
+
+        <div class="story-card">
+            <div class="photo-frame"><img src="Page4.jpg" onerror="this.src='Page3.jpg'"></div>
+            <div class="text-box">從網頁設計到阿文的事情，我最混亂的時候妳都在。</div>
+        </div>
+
+        <div class="story-card">
+            <div class="photo-frame"><img src="Page5.jpg" onerror="this.src='Page3.jpg'"></div>
+            <div class="text-box">跨年那天被放鳥，心情最差的時候，謝謝妳陪著我，聽我訴說心情。</div>
+        </div>
+
+        <div class="story-card">
+            <div class="photo-frame"><img src="Page6.jpg" onerror="this.src='Page1.jpg'"></div>
+            <div class="text-box highlight">
+                <span>還有陪我看醫生，以及介紹我去試聽「探索自己」的課程。</span><br>
+                雖然只是試聽，但我真的很期待正式課程！當然還有幫我打理嘴唇。
+            </div>
+        </div>
+
+        <div class="story-card">
+            <div class="photo-frame"><img src="Page7.jpg" onerror="this.src='Page1.jpg'"></div>
+            <div class="text-box">謝謝妳這一路上的關心與陪伴，一直挺我。</div>
+        </div>
+
+        <div class="story-card">
+            <div class="photo-frame"><img src="Page8.jpg" onerror="this.src='Page1.jpg'"></div>
+            <div class="text-box">有妳這個好姐妹，真的是我最幸運的事。</div>
+        </div>
+
+        <div class="story-card">
+            <div class="photo-frame"><img src="Page9.jpg" onerror="this.src='Page8.jpg'"></div>
+            <div class="text-box" style="font-size: 1.3rem; font-weight: bold; color: #ff6f61;">
+                謝謝妳，屁桃。
+            </div>
+        </div>
+
+        <div class="story-card">
+            <div class="photo-frame"><img src="Page9.jpg" onerror="this.src='Page8.jpg'"></div>
+            <div class="text-box">
+                未來的路，我們還要繼續這樣互當支柱喔！<br><br>
+                <button class="gift-btn" onclick="location.reload()" style="font-size:1rem; padding:10px 20px">再看一次 ❤️</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- 初始化變數 ---
+        const openBtn = document.getElementById('openBtn');
+        const landing = document.getElementById('landing');
+        const book = document.getElementById('book');
+        const bgMusic = document.getElementById('bgMusic');
+        const voiceOver = document.getElementById('voiceOver');
+        const cards = document.querySelectorAll('.story-card');
+        const peachBg = document.getElementById('peachBg');
+
+        // --- 1. 背景動畫 ---
+        function createPeaches() {
+            const emojis = ['🍑', '✨', '🌸', '💖'];
+            for(let i=0; i<20; i++) {
+                let span = document.createElement('span');
+                span.classList.add('peach');
+                span.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+                span.style.left = Math.random()*100 + '%';
+                span.style.animationDuration = (Math.random()*5+5)+'s';
+                span.style.animationDelay = Math.random()*5+'s';
+                peachBg.appendChild(span);
+            }
+        }
+        createPeaches();
+
+        // --- 2. 點擊開始 ---
+        openBtn.addEventListener('click', async () => {
+            // 介面切換
+            landing.style.opacity = '0';
+            setTimeout(() => { 
+                landing.style.display = 'none'; 
+                book.style.opacity = '1'; 
+                cards[0].classList.add('active'); // 啟動第一張動畫
+            }, 1000);
+
+            // 音訊控制 (核心需求)
+            bgMusic.volume = 0.15; // 背景音樂小聲
+            voiceOver.volume = 1.0; // 人聲大聲
+
+            try {
+                await bgMusic.play();
+                await voiceOver.play();
+                
+                // 取得人聲長度後，設定翻頁速度
+                if (voiceOver.duration) {
+                    startAutoScroll(voiceOver.duration);
+                } else {
+                    voiceOver.onloadedmetadata = () => {
+                        startAutoScroll(voiceOver.duration);
+                    };
+                }
+            } catch (err) {
+                console.log("播放被瀏覽器阻擋，需要使用者互動", err);
+            }
+        });
+
+        // --- 3. 自動翻頁邏輯 ---
+        function startAutoScroll(totalDuration) {
+            const totalCards = cards.length;
+            // 計算每張卡片停留時間 (總秒數 / 卡片數) * 1000 = 毫秒
+            const intervalTime = (totalDuration / totalCards) * 1000;
+            
+            let currentCard = 0;
+            
+            const scrollInterval = setInterval(() => {
+                currentCard++;
+                
+                if (currentCard >= totalCards) {
+                    clearInterval(scrollInterval); // 結束
+                } else {
+                    // 滑動到下一張
+                    cards[currentCard].scrollIntoView({ behavior: 'smooth' });
+                    updateActive(currentCard);
+                }
+            }, intervalTime);
+        }
+
+        function updateActive(index) {
+            cards.forEach(c => c.classList.remove('active'));
+            if(cards[index]) cards[index].classList.add('active');
+        }
+
+        // --- 4. 支援手動滑動 (更新文字動畫) ---
+        book.addEventListener('scroll', () => {
+            const midLine = window.innerHeight / 2;
+            cards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                // 當卡片中心點接近螢幕中央時
+                if (rect.top < midLine && rect.bottom > midLine) {
+                    updateActive(index);
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
