@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1352集新歌更新</title>
+
+<style>
+body {
+    font-family: Arial, "Microsoft JhengHei", sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.song {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.number {
+    font-weight: bold;
+    color: #6a1b9a;
+}
+
+.button {
+    display: block;
+    text-align: center;
+    background: #6a1b9a;
+    color: white;
+    padding: 14px;
+    margin-top: 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 15px;
+    color: #888;
+    font-size: 14px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="title">
+1352集 新歌更新
+</div>
+
+<div class="subtitle">
+3月歌集新增原聲原影歌曲
+</div>
+
+<div class="song">
+<span class="number">701594</span> 洪維謙 / 愛甲著火
+</div>
+
+<div class="song">
+<span class="number">701579</span> 佩瑜・施文 / 無奈的結局
+</div>
+
+<div class="song">
+<span class="number">701578</span> 嘉齊 / 愛妳一生一世
+</div>
+
+<div class="song">
+<span class="number">701577</span> 佩瑜 / 我的人生我佮意
+</div>
+
+<a href="https://inyuan.com.tw" class="button">
+查看完整歌單
+</a>
+
+<div class="footer">
+有問題請直接聯絡，我會立即協助
+</div>
+
+</div>
+
+</body>
+</html>
